@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: devops
+spec:
+  containers:
+  - name: sergey-zadeplo
+    image: sergeyladutko/kuber:v1
+    ports:
+    - containerPort: 8080
+  imagePullSecrets:
+  - name: regcred
+
