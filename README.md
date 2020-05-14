@@ -69,3 +69,7 @@ $ kubectl scale rc kubia --replicas=10
 $ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 ```
 узнать ip node
+```sh
+$ kubectl get endpoints
+```
+узнать все endpoints
