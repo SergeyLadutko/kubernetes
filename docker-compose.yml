@@ -30,15 +30,3 @@ services:
 
 volumes:
   mongodb:
-  kubectl run kubia --image=luksa/kubia --port=8080 --generator=run/v1 запуск имеджа + rc
-  kubectl expose rc kubia --type=LoadBalancer --name kubia-http добавления к нашему имеджу лоадбалансера
-  kubectl explain pods для вывода описания манифеста для пода
-  kubectl get po kubia-manual -o yaml описание пода девопс
-  kubectl get po --show-labels с метками
-  kubectl get po -L creation_method,env с конкретными метками
-  kubectl label po kubia-manual creation_method=manual дать метку меток
-  kubectl label po kubia-manual-v2 env=debug --overwrite изменить метку
-  kubectl get po -l creation_method=manual вывести под с конкретной меткой
-  kubectl get po -l env вывести с любым значением метки или же не имеют такую метку '!env'
-  kubectl get svc --all-namespaces посмотреть во всех нэймспэсах
-  kubectl delete po -l rel=canary удаление всех подов с конкретными метками

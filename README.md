@@ -56,3 +56,16 @@ $ kubectl get svc --all-namespaces
 $ kubectl delete po -l rel=canary
 ```
 удаление всех подов с конкретными метками
+
+```sh
+$ kubectl logs mypod --previous
+```
+вывести логи удаленного контейнера 
+```sh
+$ kubectl scale rc kubia --replicas=10
+```
+изменить количство подов
+```sh
+$ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
+```
+узнать ip node

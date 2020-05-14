@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sharks
+spec:
+  sessionAffinity: ClientIP
+  selector:
+    app: sharks
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sharks-deployment
+  labels:
+    app: sharks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sharks
+  template:
+    metadata:
+      labels:
+        app: sharks
+    spec:
+      imagePullSecrets:
+      - name: regcred
+      containers:
+      - name: sharks
+        env:
+        - name: MONGO_USERNAME
+          value: test
+        - name: MONGO_PASSWORD
+          value: test
+        - name: MONGO_HOSTNAME
+          value: mongodb
+        - name: MONGO_PORT
+          value: '27017'
+        - name: MONGO_DB
+          value: test
+        image: sergeyladutko/kuber:v2
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+            httpHeaders:
+            - name: Custom-Header
+              value: Awesome
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          exec:
+            command:
+            - curl
+            - mongodb:27017
