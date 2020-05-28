@@ -21,6 +21,11 @@ spec:
   selector:
     matchLabels:
       app: sharks
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -30,18 +35,13 @@ spec:
       - name: regcred
       containers:
       - name: sharks
-        env:
-        - name: MONGO_USERNAME
-          value: test
-        - name: MONGO_PASSWORD
-          value: test
-        - name: MONGO_HOSTNAME
-          value: mongodb
-        - name: MONGO_PORT
-          value: '27017'
-        - name: MONGO_DB
-          value: test
+        envFrom:
+        - configMapRef:
+            name: shark-config
+        - secretRef:
+            name: mysecret
         image: sergeyladutko/kuber:v2
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         livenessProbe:

@@ -1,4 +1,3 @@
-# kubernetes
 # Kubernetes
 
 [![N|Solid](https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png)](https://kubernetes.io)
@@ -72,4 +71,38 @@ $ kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="External
 ```sh
 $ kubectl get endpoints
 ```
+обновить имедж на лету 
+```sh
+$ kubectl set image deployment my-deployment `*=nginx:1.13`
+```
 узнать все endpoints
+откатить на старый деплоймент 
+```sh 
+$ kubectl rollout undo deployment my-deployment
+```
+посмотреть историю отката
+```sh
+kubectl rollout history deployment deployment_name
+```
+откатиться на канкретную ревизию
+
+```sh
+kubectl rollout undo deployment deployment_name --to-revision=1
+```
+статус компанентов
+```sh
+$ kubectl get componentstatuses
+```
+вынести порт на локал хост
+```sh
+$ kubectl port-forward pod_name 8000:80
+```
+
+###HELM
+
+[![N|Solid](https://d33wubrfki0l68.cloudfront.net/d9a3dd9398904a13c211c703709d7ad7daaef72f/3f473/images/kubernetes-helm.png)](https://https://helm.sh/)
+
+
+```sh
+$ helm upgrade test-deploy  --install  ./test-helm/ --set "TEST=test125"
+```

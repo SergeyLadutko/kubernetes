@@ -2,14 +2,15 @@ version: '3'
 
 services:
   shark:
-    image: shark:1
+    build: .
+    # image: shark:1
     environment:
       - MONGO_USERNAME=test
       - MONGO_PASSWORD=test
       - MONGO_HOSTNAME=mongodb
       - MONGO_PORT=27017
       - MONGO_DB=test
-    command: ./wait-for.sh mongodb:27017 -- node ./app.js
+    # command: ./wait-for.sh mongodb:27017 -- node ./app.js
     ports:
       - "1234:8080"
     restart: always
